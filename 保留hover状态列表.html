@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>自<a href="https://juejin.cn/post/7147874468587634702">此文章</a>学习</p>
+<ul class="list">
+    <li class="item">
+        <h3 class="title">将军，夫人喊你种田了</h3>
+        <p class="sumary">
+            只是在休息室里打了个盹儿，一睁眼，竟然穿成了古代目不识丁的乡下胖丫头。 好吃懒做不说，还在村里横行霸道。
+        </p>
+    </li>
+    <li class="item">
+        <h3 class="title">被夺一切后她封神回归</h3>
+        <p class="sumary">
+            【甜爽燃，团宠，玄学】 司扶倾一睁眼，不仅被夺了气运，人人还让她滚出娱乐圈。 重活一次，她只想咸鱼躺，谁知现在圈内人只知拉踩营销，没点真本事，不好好磨炼演技，这样下去还能行？怎么也得收拾收拾。
+        </p>
+    </li>
+    <li class="item">
+        <h3 class="title">簪星</h3>
+        <p class="sumary">
+            社畜杨簪星在连续五天熬夜加班后，穿进了自己上个月看的一本古早男频修仙爽文里，并成功当上了出场三千字就因陷害男主青梅竹马被男主一掌轰死的炮灰女配。
+        </p>
+    </li>
+    <li class="item">
+        <h3 class="title">将军，夫人喊你种田了</h3>
+        <p class="sumary">
+            只是在休息室里打了个盹儿，一睁眼，竟然穿成了古代目不识丁的乡下胖丫头。 好吃懒做不说，还在村里横行霸道。
+        </p>
+    </li>
+    <li class="item">
+        <h3 class="title">被夺一切后她封神回归</h3>
+        <p class="sumary">
+            【甜爽燃，团宠，玄学】 司扶倾一睁眼，不仅被夺了气运，人人还让她滚出娱乐圈。 重活一次，她只想咸鱼躺，谁知现在圈内人只知拉踩营销，没点真本事，不好好磨炼演技，这样下去还能行？怎么也得收拾收拾。
+        </p>
+    </li>
+    <li class="item">
+        <h3 class="title">簪星</h3>
+        <p class="sumary">
+            社畜杨簪星在连续五天熬夜加班后，穿进了自己上个月看的一本古早男频修仙爽文里，并成功当上了出场三千字就因陷害男主青梅竹马被男主一掌轰死的炮灰女配。
+        </p>
+    </li>
+</ul>
+</body>
+
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    /*网格线的间隙宽度，MDN：https://developer.mozilla.org/zh-CN/docs/Web/CSS/gap*/
+    gap: 20px;
+  }
+  .list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 400px;
+  }
+  .item {
+    position: relative;
+    padding: 10px 10px 10px 34px;
+    cursor: pointer;
+    /*给title::before内的counter值，MDN：https://developer.mozilla.org/zh-CN/docs/Web/CSS/counter-increment*/
+    counter-increment: num;
+  }
+  /*title前添加的内容*/
+  .title::before {
+    /*插入内容，MDN：https://developer.mozilla.org/zh-CN/docs/Web/CSS/content*/
+    /*before和after必须有content，哪怕是空字符串*/
+    content: counter(num);
+    /*给一个宽度撑开序号*/
+    width: 25px;
+    /*与h3等同行高，实现对齐*/
+    line-height: 30px;
+    text-align: center;
+    /*绝对定位让序号在靠左的地方*/
+    position: absolute;
+    left: 4px;
+    /*before内的字体*/
+    font-size: 14px;
+    font-family: fantasy;
+  }
+  .title {
+    margin: 0;
+    padding: 8px 0;
+    font-weight: normal;
+  }
+  .sumary {
+    margin: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    font-size: 14px;
+    height: 0;
+  }
+  /*给整个li加个遮罩*/
+  .item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    opacity: 0;
+    z-index: -1;
+    /*渐变颜色*/
+    background: linear-gradient(
+        270deg,
+        rgb(241, 236, 249) 0%,
+        rgba(241, 236, 249, 0) 100%
+    );
+  }
+
+  /*给这三个属性出现的变化增加时间9999s（变相永久）*/
+  .item::before, .item .sumary, .item .title {
+    transition: 0s 9999s;
+  }
+
+  /* 初始状态（第一个选中），样式要和hover内一样 */
+  .item:first-child .sumary {
+    /*第一个展示的item高度*/
+    height: 40px;
+  }
+  .item:first-child .title {
+    color: rebeccapurple;
+  }
+  .item:first-child::before {
+    opacity: 1;
+  }
+
+  /*清除离开的hover，因为上面设置了9999s，不设置会一直保留*/
+  .list:hover .title {
+    transition: none;
+    color: #333;
+  }
+  .list:hover .sumary {
+    /*清除hover产生的变化，让item缩回去*/
+    transition: none;
+    height: 0;
+  }
+  .list:hover .item::before {
+    transition: none;
+    opacity: 0;
+  }
+
+  /* 每一项hover */
+  .item:hover .title {
+    color: rebeccapurple;
+    transition: none;
+  }
+  .item:hover .sumary {
+    height: 40px;
+    transition: none;
+  }
+  .item.item:hover::before {
+    opacity: 1;
+    transition: none;
+  }
+
+</style>
+
+</html>
